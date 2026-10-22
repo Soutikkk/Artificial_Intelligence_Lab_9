@@ -1,191 +1,156 @@
-# ARMA(1,1) Time Series Analysis and Forecasting
 
-This project demonstrates how to generate, analyze, model, and forecast a **stationary time series** using an **ARMA(1,1)** model in Python.
+# Time Series Analysis and Forecasting
 
-The project uses **NumPy**, **Pandas**, **Matplotlib**, and **Statsmodels** to generate synthetic time-series data, test its stationarity, fit an ARMA model, generate forecasts, and evaluate the model using Mean Absolute Error (MAE).
+## Overview
 
-## 📌 Objective
+This project demonstrates three time-series forecasting models using Python:
 
-The main objectives of this project are to:
+1. AR(1) - Autoregressive model
+2. MA(1) - Moving Average model
+3. ARMA(1,1) - Autoregressive Moving Average model
 
-- Generate a synthetic stationary time series.
-- Simulate an **ARMA(1,1)** process.
-- Check stationarity using the **Augmented Dickey-Fuller (ADF) Test**.
-- Visualize the generated time series.
-- Fit an ARMA(1,1) model using `ARIMA(1,0,1)`.
-- Compare actual and fitted values.
-- Forecast the next **20 time steps**.
-- Evaluate model performance using **Mean Absolute Error (MAE)**.
+The project uses synthetic time-series data to demonstrate stationarity testing, model fitting, forecasting, visualization, and model evaluation.
 
-## 🛠️ Technologies and Libraries Used
+## Objectives
+
+- Generate synthetic stationary time-series data.
+- Understand AR(1), MA(1), and ARMA(1,1) models.
+- Test stationarity using the Augmented Dickey-Fuller (ADF) test.
+- Fit time-series models using Statsmodels.
+- Visualize actual and fitted observations.
+- Forecast the next 20 observations.
+- Evaluate fitted values using Mean Absolute Error (MAE).
+
+## Technologies Used
 
 - Python
 - NumPy
 - Pandas
 - Matplotlib
 - Statsmodels
+- Scikit-learn
 
-## 📦 Installation
+## Installation
 
-Install the required Python libraries using:
-
-```bash
-pip install numpy pandas matplotlib statsmodels
-```
-
-## 📥 Importing Libraries
-
-```python
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from statsmodels.tsa.arima.model import ARIMA
-from statsmodels.tsa.stattools import adfuller
-```
-
-## 📊 Dataset Generation
-
-The program generates **200 observations** of a synthetic ARMA(1,1) time series.
-
-The parameters used are:
-
-```python
-phi = 0.65
-theta = 0.35
-```
-
-The time series is generated using:
-
-```text
-X(t) = φX(t-1) + ε(t) + θε(t-1)
-```
-
-where:
-
-- `φ = 0.65` is the autoregressive coefficient.
-- `θ = 0.35` is the moving-average coefficient.
-- `ε(t)` represents random white noise.
-
-A random seed is used to make the generated data reproducible:
-
-```python
-np.random.seed(42)
-```
-
-## 🔍 Stationarity Test
-
-The **Augmented Dickey-Fuller (ADF) Test** is used to determine whether the generated time series is stationary.
-
-```python
-result = adfuller(series)
-
-print('ADF statistic:', result[0])
-print('p-value:', result[1])
-```
-
-### Interpretation
-
-- **p-value < 0.05** → Reject the null hypothesis → The series is considered stationary.
-- **p-value ≥ 0.05** → Fail to reject the null hypothesis → The series may be non-stationary.
-
-## 📈 Time Series Visualization
-
-The generated time series is plotted using Matplotlib.
-
-```python
-plt.plot(series)
-```
-
-This helps visualize the fluctuations and behavior of the stationary time series over time.
-
-## 🤖 ARMA(1,1) Model
-
-The ARMA(1,1) model is implemented using the `ARIMA` class:
-
-```python
-model = ARIMA(series, order=(1, 0, 1))
-fitted = model.fit()
-```
-
-The order `(1, 0, 1)` represents:
-
-- `p = 1` → One autoregressive (AR) term.
-- `d = 0` → No differencing because the series is stationary.
-- `q = 1` → One moving-average (MA) term.
-
-Therefore:
-
-```text
-ARIMA(1,0,1) = ARMA(1,1)
-```
-
-## 🔮 Forecasting
-
-The fitted model predicts the next **20 observations**:
-
-```python
-forecast = fitted.forecast(steps=20)
-```
-
-The final graph displays:
-
-- **Actual values**
-- **Fitted values**
-- **Forecasted values**
-
-A vertical dashed line separates the original observations from the forecast period.
-
-## 📏 Model Evaluation
-
-The model is evaluated using **Mean Absolute Error (MAE)**:
-
-```python
-mae = np.mean(np.abs(series - fitted_values))
-
-print('In-sample MAE:', mae)
-```
-
-MAE measures the average absolute difference between the actual values and the fitted values.
-
-A **lower MAE** generally indicates that the fitted model follows the observed data more closely.
-
-## ▶️ How to Run
-
-Save the Python program, for example, as:
-
-```text
-arma_model.py
-```
-
-Run it from the terminal:
+Install the required libraries:
 
 ```bash
-python arma_model.py
+python -m pip install numpy pandas matplotlib statsmodels scikit-learn
 ```
 
-The program will:
-
-1. Generate the ARMA(1,1) time series.
-2. Display the first few observations.
-3. Perform the ADF stationarity test.
-4. Plot the generated time series.
-5. Fit the ARMA(1,1) model.
-6. Display the model summary.
-7. Forecast the next 20 observations.
-8. Plot actual, fitted, and forecasted values.
-9. Calculate and display the in-sample MAE.
-
-## 📂 Project Structure
+## Project Structure
 
 ```text
 ARMA-Time-Series/
 │
-├── arma_model.py
+├── AR1_Time_Series_Forecasting.py
+├── MA1_Time_Series_Forecasting.py
+├── ARIMA Time Series Forecasting.py
 └── README.md
 ```
 
-## 📝 Conclusion
+The ARIMA file represents the original ARMA(1,1) program.
+If your original file has a different name, use that name instead.
 
-This project demonstrates the basic workflow of **time-series modeling using ARMA(1,1)**. A synthetic stationary time series is generated and verified using the Augmented Dickey-Fuller test. An ARMA(1,1) model is then fitted to the data and used to forecast future observations.
+## 1. AR(1) Model
 
-The project provides a simple introduction to **stationarity testing, ARMA modeling, forecasting, visualization, and model evaluation** using Python.
+The AR(1) model is defined as:
+
+X(t) = phi * X(t-1) + epsilon(t)
+
+Parameters:
+- phi = 0.70
+- 200 observations
+- Random seed = 42
+
+The model is implemented using:
+
+ARIMA(1, 0, 0)
+
+Run the program:
+
+```bash
+python AR1_Time_Series_Forecasting.py
+```
+
+## 2. MA(1) Model
+
+The MA(1) model is defined as:
+
+X(t) = epsilon(t) + theta * epsilon(t-1)
+
+Parameters:
+- theta = 0.60
+- 200 observations
+- Random seed = 42
+
+The model is implemented using:
+
+ARIMA(0, 0, 1)
+
+Run the program:
+
+```bash
+python MA1_Time_Series_Forecasting.py
+```
+
+## 3. ARMA(1,1) Model
+
+The ARMA(1,1) model combines autoregressive and moving-average components.
+
+X(t) = phi * X(t-1) + epsilon(t)
+       + theta * epsilon(t-1)
+
+The model is implemented using:
+
+ARIMA(1, 0, 1)
+
+Run the original program:
+
+```bash
+python "ARIMA Time Series Forecasting.py"
+```
+
+Change the filename in the command if necessary.
+
+## Stationarity Testing
+
+The Augmented Dickey-Fuller test checks for evidence of a unit root.
+
+- p-value < 0.05: Reject the unit-root null hypothesis.
+- p-value >= 0.05: Fail to reject the unit-root null hypothesis.
+
+The result should be interpreted as statistical evidence, not an absolute guarantee.
+
+## Forecasting
+
+Each program forecasts the next 20 time steps.
+
+The final graph displays:
+- Actual values
+- Fitted values
+- Forecasted values
+
+A vertical dashed line indicates where the forecast period begins.
+
+## Model Evaluation
+
+Mean Absolute Error (MAE) measures the average absolute difference between observed and fitted values.
+
+MAE = mean(abs(actual values - fitted values))
+
+A lower MAE indicates smaller average in-sample errors. However, in-sample MAE alone does not establish future forecasting performance.
+
+## How to Run
+
+1. Open the project folder in VS Code.
+2. Open the terminal.
+3. Install the dependencies.
+4. Run each Python file separately.
+5. View the printed model summaries, stationarity results, MAE, and forecast plots.
+
+## Conclusion
+
+This project demonstrates three fundamental time-series models: AR(1), MA(1), and ARMA(1,1).
+
+It provides practical experience with synthetic data generation, stationarity testing, statistical model fitting, forecasting, visualization, and error evaluation using Python.
